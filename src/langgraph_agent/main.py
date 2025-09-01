@@ -40,6 +40,13 @@ def load_langgraph_agentic_app():
             
             # Graph Builder
             graph_builder = GraphBuilder(model)
+            
+            try:
+                graph = graph_builder.setup_graph(usecase)
+            except Exception as e:
+                st.error("Error! Graph setup failed!", e)
+                return 
+
         except Exception as e:
             raise ValueError("Error! Could not initalize LLM", e)
         
