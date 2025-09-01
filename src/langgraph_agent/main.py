@@ -1,5 +1,6 @@
 from src.langgraph_agent.ui.streamlitui.load_ui import LoadStreamlitUI
 from src.langgraph_agent.llms.groqllm import GroqLLM
+from src.langgraph_agent.graph.graph_builder import GraphBuilder
 import streamlit as st
 import json
 
@@ -37,7 +38,8 @@ def load_langgraph_agentic_app():
                 st.error("No usecase selected!")
                 return
             
-            
+            # Graph Builder
+            graph_builder = GraphBuilder(model)
         except Exception as e:
             raise ValueError("Error! Could not initalize LLM", e)
         
