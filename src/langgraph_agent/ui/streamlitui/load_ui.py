@@ -10,7 +10,7 @@ class LoadStreamlitUI:
         self.config = Config()
         self.user_controls = {}
 
-    def initialize_session():
+    def initialize_session(self):
         return {
             "current_step": "requirements",
             "requirements": "",
