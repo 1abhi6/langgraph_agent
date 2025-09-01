@@ -1,4 +1,5 @@
 from src.langgraph_agent.ui.streamlitui.load_ui import LoadStreamlitUI
+from src.langgraph_agent.llms.groqllm import GroqLLM
 import streamlit as st
 import json
 
@@ -18,4 +19,27 @@ def load_langgraph_agentic_app():
     # elif st.session_state.IsSDLC:
     #     user_message = st.session_state.state
     else:
-        user_input = st.chat_input("Input your message")
+        user_message = st.chat_input("Input your message")
+        
+    if user_input:
+        try:
+            # Configure LLM
+            obj_llm_config = GroqLLM(user_controls_input=user_input)
+            model = obj_llm_config.get_llm_model()
+            
+            if not model:
+                st.error("LLM could not be initialized!")
+                return
+            
+            # Initalize and setup the graph based on the usecase
+            usecase = user_input.get("selected_usecase")
+            if not usecase:
+                st.error("No usecase selected!")
+                return
+            
+            
+        except Exception as e:
+            raise ValueError("Error! Could not initalize LLM", e)
+        
+        
+    
