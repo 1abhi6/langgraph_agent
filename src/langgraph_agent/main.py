@@ -24,11 +24,19 @@ def load_langgraph_agentic_app():
     else:
         user_message = st.chat_input("Input your message")
         
+    if not user_message:
+        st.warning("Please enter a message before continuing.")
+        return
+
+        
     if user_input:
         try:
             # Configure LLM
             obj_llm_config = GroqLLM(user_controls_input=user_input)
             model = obj_llm_config.get_llm_model()
+            
+            print("Model created!", model)
+            print("User Input", user_input)
             
             if not model:
                 st.error("LLM could not be initialized!")
@@ -48,11 +56,11 @@ def load_langgraph_agentic_app():
                 DisplayResultStreamlit(usecase, graph, user_message).display_result_on_ui()
                 
             except Exception as e:
-                st.error("Error! Graph setup failed!", e)
+                st.error(f"Error! Graph setup failed!{e}")
                 return 
-
+            
         except Exception as e:
-            raise ValueError("Error! Could not initalize LLM", e)
+            raise ValueError(f"Error! Could not initalize LLM {e}")
         
         
     
